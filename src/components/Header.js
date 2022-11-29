@@ -1,22 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { Link } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
 function Header({ title, searchImage }) {
   return (
     <header>
-
-      <button
-        type="button"
+      <Link
+        to="/profile"
       >
-        <img
-          src={ profileIcon }
-          alt="Perfil"
-          data-testid="profile-top-btn"
-        />
-      </button>
+        <button
+          type="button"
+        >
+          <img
+            src={ profileIcon }
+            alt="Perfil"
+            data-testid="profile-top-btn"
+          />
+        </button>
+      </Link>
 
       {
         searchImage
