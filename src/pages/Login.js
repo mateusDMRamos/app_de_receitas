@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function Login() {
   const [password, setPassword] = useState('');
@@ -22,6 +23,13 @@ function Login() {
     setValue(value);
   };
 
+  const handleClick = () => {
+    const user = {
+      email,
+    };
+    localStorage.setItem('user', JSON.stringify(user));
+  };
+
   return (
     <form>
       <h2>Login</h2>
@@ -37,14 +45,16 @@ function Login() {
         placeholder="Password"
         onChange={ ({ target }) => handleChange(target.value, setPassword) }
       />
-      <br />
-      <button
-        type="button"
-        data-testid="login-submit-btn"
-        disabled={ btnDisabled }
-      >
-        Enter
-      </button>
+      <Link to="/meals">
+        <button
+          type="button"
+          data-testid="login-submit-btn"
+          disabled={ btnDisabled }
+          onClick={ handleClick }
+        >
+          Enter
+        </button>
+      </Link>
     </form>
   );
 }
