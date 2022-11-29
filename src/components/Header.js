@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { Link } from 'react-router-dom';
@@ -6,6 +6,8 @@ import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
 function Header({ title, searchImage }) {
+  const [search, setSearch] = useState(false);
+
   return (
     <header>
       <Link
@@ -27,6 +29,7 @@ function Header({ title, searchImage }) {
       && (
         <button
           type="button"
+          onClick={ () => setSearch(!search) } // No img dá erro de lint
         >
           <img
             src={ searchIcon }
@@ -35,6 +38,17 @@ function Header({ title, searchImage }) {
           />
         </button>
       )
+      }
+
+      {
+        search
+        && (
+          <input
+            type="text"
+            data-testid="search-input"
+            placeholder="Search"
+          />
+        )
       }
 
       <h1
