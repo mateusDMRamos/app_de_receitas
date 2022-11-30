@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
-
 import { Link } from 'react-router-dom';
+import recipesContext from '../context/recipesContext';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
 
 function Header({ title, searchImage }) {
   const [search, setSearch] = useState(false);
+  const { setSearchText } = useContext(recipesContext);
 
   return (
     <div>
@@ -49,6 +50,7 @@ function Header({ title, searchImage }) {
             type="text"
             data-testid="search-input"
             placeholder="Search"
+            onChange={ ({ target }) => { setSearchText(target.value); } }
           />
         )
         }
