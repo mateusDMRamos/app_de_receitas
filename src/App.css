@@ -52,6 +52,11 @@
   }
 }
 
+.app-footer {
+  bottom: 0;
+  position: fixed;
+}
+
 @keyframes clink {
 
   0% {
