@@ -66,3 +66,8 @@
     transform: rotate(-10deg);
   }
 }
+
+#app-footer{
+  position: fixed;
+  bottom: 0;
+}

@@ -7,7 +7,6 @@ import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 
 function Routes() {
-  // 17,18 e 19 sem ícone de pesquisa
   return (
     <Switch>
       <Route exact path="/" component={ Login } />
