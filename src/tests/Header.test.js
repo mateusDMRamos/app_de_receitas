@@ -34,5 +34,9 @@ describe('Testa o componente Header', () => {
     expect(screen.queryByTestId(searchInput)).not.toBeInTheDocument();
     expect(screen.getByTestId(searchIcon)).toBeInTheDocument();
     userEvent.click(screen.getByTestId(searchIcon));
+
+    const searchInputHeader = screen.getByTestId(searchInput);
+    userEvent.type(searchInputHeader, 'rice');
+    expect(searchInputHeader).toHaveValue('rice');
   });
 });
