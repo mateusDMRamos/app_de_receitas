@@ -7,7 +7,7 @@ import '../App.css';
 
 function Footer() {
   return (
-    <footer data-testid="footer" id="app-footer">
+    <footer data-testid="footer" className="app-footer">
       <Link
         to="/drinks"
       >

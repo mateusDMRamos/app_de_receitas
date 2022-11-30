@@ -52,6 +52,11 @@
   }
 }
 
+.app-footer {
+  bottom: 0;
+  position: fixed;
+}
+
 @keyframes clink {
 
   0% {
@@ -65,9 +70,4 @@
   100% {
     transform: rotate(-10deg);
   }
-}
-
-#app-footer{
-  position: fixed;
-  bottom: 0;
 }
