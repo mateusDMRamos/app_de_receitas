@@ -15,6 +15,15 @@ const searchIcon = 'search-top-btn';
 const searcInputHeader = 'search-input';
 
 describe('Testa o componente searchBar na Página Drinks', () => {
+  beforeEach(() => {
+    global.fetch = jest.fn(() => Promise.resolve({
+      json: () => Promise.resolve({}),
+    }));
+  });
+
+  afterEach(() => {
+    global.fetch.mockClear();
+  });
   it('Verifica se os elementos são renderizados', async () => {
     const { history } = renderWithRouter(<App />);
     const inputEmailLogin = screen.getByTestId(inputEmail);

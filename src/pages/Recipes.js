@@ -5,9 +5,17 @@ import recipesContext from '../context/recipesContext';
 import Footer from '../components/Footer';
 
 function Recipes({ history }) {
-  const { setHistory } = useContext(recipesContext);
+  const { setHistory, recipes } = useContext(recipesContext);
   useEffect(() => { setHistory(history.location.pathname); });
-
+  useEffect(() => {
+    if (recipes.drinks) {
+      console.log(recipes.drinks);
+    } else if (recipes.meals) {
+      console.log(recipes.meals);
+    } else {
+      global.alert('Sorry, we haven\'t found any recipes for these filters.');
+    }
+  }, [recipes]);
   return (
     <>
       <header>
