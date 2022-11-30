@@ -5,26 +5,35 @@ function SearchBar() {
     <div>
       <form>
 
-        <input
-          type="radio"
-          data-testid="ingredient-search-radio"
-          name="myGroupName"
-        />
-        Ingredient
+        <label htmlFor="ingredient">
+          <input
+            type="radio"
+            data-testid="ingredient-search-radio"
+            name="searchType"
+            id="ingredient"
+          />
+          Ingredient
+        </label>
 
-        <input
-          type="radio"
-          data-testid="name-search-radio"
-          name="myGroupName"
-        />
-        Name
+        <label htmlFor="name-search">
+          <input
+            type="radio"
+            data-testid="name-search-radio"
+            name="searchType"
+            id="name-search"
+          />
+          Name
+        </label>
 
-        <input
-          type="radio"
-          data-testid="first-letter-search-radio"
-          name="myGroupName"
-        />
-        First letter
+        <label htmlFor="first-letter">
+          <input
+            type="radio"
+            data-testid="first-letter-search-radio"
+            name="searchType"
+            id="first-letter"
+          />
+          First letter
+        </label>
 
         <button
           type="button"
