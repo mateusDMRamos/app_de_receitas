@@ -5,13 +5,16 @@ import recipesContext from './recipesContext';
 export default function RecipesProvider({ children }) {
   const [searchRadio, setSearchRadio] = useState('');
   const [searchText, setSearchText] = useState('');
+  const [historyPathname, setHistory] = useState('');
 
   const value = useMemo(() => ({
     searchRadio,
     setSearchRadio,
     searchText,
     setSearchText,
-  }), [searchRadio, searchText]);
+    historyPathname,
+    setHistory,
+  }), [searchRadio, searchText, historyPathname]);
 
   return (
     <recipesContext.Provider value={ value }>

@@ -1,15 +1,21 @@
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 import recipesContext from '../context/recipesContext';
 import {
   fetchMealsByIngredients, fetchMealsByName, fetchMealsByFirstLetter,
 } from '../services/meals';
+import {
+  fetchDrinksByIngredients, fetchDrinksByName, fetchDrinksByFirstLetter,
+} from '../services/drinks';
 
 function SearchBar() {
-  const { setSearchRadio, searchRadio, searchText } = useContext(recipesContext);
+  const {
+    setSearchRadio, searchRadio, searchText, historyPathname,
+  } = useContext(recipesContext);
 
   const firstLetter = 'first-letter';
 
-  const handleClick = async () => {
+  const handleClickMeals = async () => {
     if (searchRadio === 'ingredient') {
       await fetchMealsByIngredients(searchText);
     } else if (searchRadio === 'name') {
@@ -19,7 +25,29 @@ function SearchBar() {
     } else if (searchText.length === 1 && searchRadio === firstLetter) {
       await fetchMealsByFirstLetter(searchText);
     } else {
-      global.alert('Select a filter');
+      global.alert('Sorry, we haven\'t found any recipes for these filters.');
+    }
+  };
+
+  const handleClickDrinks = async () => {
+    if (searchRadio === 'ingredient') {
+      await fetchDrinksByIngredients(searchText);
+    } else if (searchRadio === 'name') {
+      await fetchDrinksByName(searchText);
+    } else if (searchText.length > 1 && searchRadio === firstLetter) {
+      global.alert('Your search must have only 1 (one) character');
+    } else if (searchText.length === 1 && searchRadio === firstLetter) {
+      await fetchDrinksByFirstLetter(searchText);
+    } else {
+      global.alert('Sorry, we haven\'t found any recipes for these filters.');
+    }
+  };
+
+  const handleClick = () => {
+    if (historyPathname === '/meals') {
+      handleClickMeals();
+    } else {
+      handleClickDrinks();
     }
   };
 
@@ -72,5 +100,13 @@ function SearchBar() {
     </div>
   );
 }
+
+SearchBar.propTypes = ({
+  history: PropTypes.shape({
+    location: PropTypes.shape({
+      pathname: PropTypes.string,
+    }),
+  }),
+}).isRequired;
 
 export default SearchBar;
