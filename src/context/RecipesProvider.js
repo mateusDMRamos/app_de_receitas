@@ -6,7 +6,7 @@ export default function RecipesProvider({ children }) {
   const [searchRadio, setSearchRadio] = useState('');
   const [searchText, setSearchText] = useState('');
   const [historyPathname, setHistory] = useState('');
-  const [recipes, setRecipes] = useState({});
+  const [recipes, setRecipes] = useState({ notSearched: true });
 
   const value = useMemo(() => ({
     searchRadio,

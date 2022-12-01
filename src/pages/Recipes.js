@@ -10,12 +10,18 @@ function Recipes({ history }) {
   useEffect(() => {
     if (recipes.drinks) {
       console.log(recipes.drinks);
+      if (recipes.drinks.length === 1) {
+        history.push(`/drinks/${recipes.drinks[0].idDrink}`);
+      }
     } else if (recipes.meals) {
       console.log(recipes.meals);
-    } else {
+      if (recipes.meals.length === 1) {
+        history.push(`/meals/${recipes.meals[0].idMeal}`);
+      }
+    } else if (!recipes.notSearched) {
       global.alert('Sorry, we haven\'t found any recipes for these filters.');
     }
-  }, [recipes]);
+  }, [recipes, history]);
   return (
     <>
       <header>

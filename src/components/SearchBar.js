@@ -11,7 +11,7 @@ import {
 
 function SearchBar() {
   const {
-    setSearchRadio, searchRadio, searchText, historyPathname, setRecipes, recipes,
+    setSearchRadio, searchRadio, searchText, historyPathname, setRecipes,
   } = useContext(recipesContext);
 
   const firstLetter = 'first-letter';
