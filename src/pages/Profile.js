@@ -3,7 +3,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 function Profile() {
-  const emailFromLocalStorage = localStorage.getItem('user');
+  const emailFromLocalStorage = JSON.parse(localStorage.getItem('user')).email;
   return (
     <>
       <header>
