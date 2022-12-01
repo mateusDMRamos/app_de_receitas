@@ -18,3 +18,10 @@ export const fetchMealsByFirstLetter = async (firstLetterMeal) => {
   const data = await response.json();
   return data;
 };
+
+export const fetchMealsCategory = async () => {
+  const endPoint = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
+  const response = await fetch(endPoint);
+  const data = await response.json();
+  return data;
+};
