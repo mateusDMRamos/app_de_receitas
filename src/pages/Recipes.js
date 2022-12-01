@@ -24,7 +24,6 @@ function Recipes({ history }) {
       const categoriesSize = 4;
       const filteredCategories = mealsCategories[key]
         .filter((c, i) => i <= categoriesSize);
-      console.log(filteredCategories);
       setCategories(filteredCategories);
     };
 
@@ -80,6 +79,7 @@ function Recipes({ history }) {
           return (
             <RecipeCard
               index={ index }
+              type="drinks"
               data-testid={ `${index}-recipe-card` }
               key={ recipe.idDrink }
               recipeId={ recipe.idDrink }
@@ -91,6 +91,7 @@ function Recipes({ history }) {
         return (
           <RecipeCard
             index={ index }
+            type="meals"
             key={ recipe.idMeal }
             recipeId={ recipe.idMeal }
             recipeName={ recipe.strMeal }
