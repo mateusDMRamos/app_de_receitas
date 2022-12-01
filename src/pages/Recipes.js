@@ -4,22 +4,36 @@ import Header from '../components/Header';
 import recipesContext from '../context/recipesContext';
 import Footer from '../components/Footer';
 import RecipeCard from '../components/RecipeCard';
-import { fetchMealsByName } from '../services/meals';
-import { fetchDrinksByName } from '../services/drinks';
+import { fetchMealsByName, fetchMealsCategory } from '../services/meals';
+import { fetchDrinksByName, fetchDrinksCategory } from '../services/drinks';
+import CategorySelector from '../components/CategorySelector';
 
 function Recipes({ history }) {
   const { setHistory, recipes, setRecipes } = useContext(recipesContext);
   const [firstRecipes, setFirstRecipes] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     const fetchRecipes = async (fetchFunction) => {
       const initialRecipes = await fetchFunction('');
       setRecipes(initialRecipes);
     };
+
+    const fetchCategories = async (fetchFunction, key) => {
+      const mealsCategories = await fetchFunction();
+      const categoriesSize = 4;
+      const filteredCategories = mealsCategories[key]
+        .filter((c, i) => i <= categoriesSize);
+      console.log(filteredCategories);
+      setCategories(filteredCategories);
+    };
+
     if (history.location.pathname === '/meals') {
       fetchRecipes(fetchMealsByName);
+      fetchCategories(fetchMealsCategory, 'meals');
     } else {
       fetchRecipes(fetchDrinksByName);
+      fetchCategories(fetchDrinksCategory, 'drinks');
     }
   }, [setRecipes, history.location.pathname]);
 
@@ -60,6 +74,7 @@ function Recipes({ history }) {
             : <Header title="Drinks" searchImage />
         }
       </header>
+      <CategorySelector categories={ categories } />
       {firstRecipes.map((recipe, index) => {
         if (recipe.idDrink) {
           return (
