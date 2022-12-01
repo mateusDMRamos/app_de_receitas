@@ -4,12 +4,27 @@ import Header from '../components/Header';
 import recipesContext from '../context/recipesContext';
 import Footer from '../components/Footer';
 import RecipeCard from '../components/RecipeCard';
+import { fetchMealsByName } from '../services/meals';
+import { fetchDrinksByName } from '../services/drinks';
 
 function Recipes({ history }) {
   const { setHistory, recipes, setRecipes } = useContext(recipesContext);
   const [firstRecipes, setFirstRecipes] = useState([]);
 
+  useEffect(() => {
+    const fetchRecipes = async (fetchFunction) => {
+      const initialRecipes = await fetchFunction('');
+      setRecipes(initialRecipes);
+    };
+    if (history.location.pathname === '/meals') {
+      fetchRecipes(fetchMealsByName);
+    } else {
+      fetchRecipes(fetchDrinksByName);
+    }
+  }, [setRecipes, history.location.pathname]);
+
   useEffect(() => { setHistory(history.location.pathname); });
+
   useEffect(() => {
     if (recipes.drinks) {
       if (recipes.drinks.length === 1) {
