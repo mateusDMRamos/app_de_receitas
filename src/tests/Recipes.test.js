@@ -1,7 +1,7 @@
 import { screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import App from '../App';
 import renderWithRouter from './helpers';
-import userEvent from '@testing-library/user-event';
 import mealsCategoriesMock from './mocks/mealsCategoriesMock';
 
 const TEST_EMAIL = 'teste@email.com';
@@ -21,7 +21,7 @@ describe('Testa o componente searchBar na Página Drinks', () => {
     global.fetch.mockClear();
   });
 
-  it('Testa se as categorias de comida sao renderizadas na tela', () => {
+  it('Testa se as categorias de comida sao renderizadas na tela', async () => {
     const { history } = renderWithRouter(<App />);
     const inputEmailLogin = screen.getByTestId(inputEmail);
     const inputPasswordLogin = screen.getByTestId(inputPassword);
@@ -32,7 +32,7 @@ describe('Testa o componente searchBar na Página Drinks', () => {
     userEvent.click(inputBtnLogin);
     expect(history.location.pathname).toBe('/meals');
 
-    const chickenCategory = screen.getByRole('button', { name: 'Chicken' });
+    const chickenCategory = await screen.findByRole('button', { name: 'Chicken' });
     expect(chickenCategory).toBeInTheDocument();
   });
 });
