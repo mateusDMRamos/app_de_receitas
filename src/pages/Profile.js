@@ -4,7 +4,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 function Profile() {
-  const emailFromLocalStorage = JSON.parse(localStorage.getItem('user')).email;
+  const userFromLocalStorage = JSON.parse(localStorage.getItem('user'));
   return (
     <>
       <header>
@@ -14,7 +14,7 @@ function Profile() {
         <p
           data-testid="profile-email"
         >
-          {emailFromLocalStorage}
+          {userFromLocalStorage ? userFromLocalStorage.email : ''}
         </p>
         <Link to="/done-recipes">
           <button
@@ -32,12 +32,15 @@ function Profile() {
             Favorite Recipes
           </button>
         </Link>
-        <button
-          type="button"
-          data-testid="profile-logout-btn"
-        >
-          Logout
-        </button>
+        <Link to="/">
+          <button
+            type="button"
+            data-testid="profile-logout-btn"
+            onClick={ () => localStorage.clear() }
+          >
+            Logout
+          </button>
+        </Link>
       </div>
       <Footer />
     </>
