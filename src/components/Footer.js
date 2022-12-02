@@ -16,7 +16,7 @@ function Footer() {
         >
           <img
             src={ drinkIcon }
-            alt="Perfil"
+            alt="Drink Icon"
             data-testid="drinks-bottom-btn"
           />
         </button>
@@ -29,7 +29,7 @@ function Footer() {
         >
           <img
             src={ mealIcon }
-            alt="Perfil"
+            alt="Meal Icon"
             data-testid="meals-bottom-btn"
           />
         </button>
