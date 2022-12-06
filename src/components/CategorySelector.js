@@ -4,28 +4,28 @@ import PropTypes from 'prop-types';
 import '../App.css';
 import recipesContext from '../context/recipesContext';
 import { fetchMealsByCategory, fetchMealsByName }
- from '../services/meals';
- import { fetchDrinksByCategory, fetchDrinksByName }
- from '../services/drinks';
+  from '../services/meals';
+import { fetchDrinksByCategory, fetchDrinksByName }
+  from '../services/drinks';
 
 function CategorySelector({ categories, history }) {
   const { setRecipes, setRedirect } = useContext(recipesContext);
   const handleClick = async (category) => {
     setRedirect(false);
     if (history === '/meals') {
-      setRecipes(await fetchMealsByCategory(category))
-    } else (
-      setRecipes(await fetchDrinksByCategory(category))
-    )
+      setRecipes(await fetchMealsByCategory(category));
+    } else {
+      setRecipes(await fetchDrinksByCategory(category));
+    }
   };
 
   const handleClickAll = async () => {
     setRedirect(false);
     if (history === '/meals') {
-      setRecipes(await fetchMealsByName(''))
-    } else (
-      setRecipes(await fetchDrinksByName(''))
-    )
+      setRecipes(await fetchMealsByName(''));
+    } else {
+      setRecipes(await fetchDrinksByName(''));
+    }
   };
 
   return (
@@ -33,20 +33,21 @@ function CategorySelector({ categories, history }) {
       {
         categories.map((c, i) => (
           <button
-            key={i}
+            key={ i }
             type="button"
-            data-testid={`${c.strCategory}-category-filter`}
-            onClick={() => {
-              handleClick(c.strCategory)
-            }}
+            data-testid={ `${c.strCategory}-category-filter` }
+            onClick={ () => {
+              handleClick(c.strCategory);
+            } }
           >
             {c.strCategory}
           </button>
         ))
       }
-      <button 
-      data-testid="All-category-filter"
-      onClick={ handleClickAll }
+      <button
+        type="button"
+        data-testid="All-category-filter"
+        onClick={ handleClickAll }
       >
         All
       </button>
