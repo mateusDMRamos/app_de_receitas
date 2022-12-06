@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import recipesContext from '../context/recipesContext';
 
@@ -11,8 +11,15 @@ import {
 
 function SearchBar() {
   const {
-    setSearchRadio, searchRadio, searchText, historyPathname, setRecipes, setRedirect,
+    setSearchRadio, searchRadio, searchText, historyPathname, setRecipes,
+    recipes, setRedirect,
   } = useContext(recipesContext);
+
+  useEffect(() => {
+    if (searchClicked) {
+      setRedirect(true);
+    }
+  }, [recipes, setRedirect]);
 
   const firstLetter = 'first-letter';
 
@@ -48,12 +55,11 @@ function SearchBar() {
     }
   };
 
-  const handleClick = () => {
-    setRedirect(true);
+  const handleClick = async () => {
     if (historyPathname === '/meals') {
-      handleClickMeals();
+      await handleClickMeals();
     } else {
-      handleClickDrinks();
+      await handleClickDrinks();
     }
   };
 

@@ -9,8 +9,9 @@ import { fetchMealsByCategory, fetchMealsByName }
  from '../services/drinks';
 
 function CategorySelector({ categories, history }) {
-  const { setRecipes, recipes } = useContext(recipesContext);
+  const { setRecipes, setRedirect } = useContext(recipesContext);
   const handleClick = async (category) => {
+    setRedirect(false);
     if (history === '/meals') {
       setRecipes(await fetchMealsByCategory(category))
     } else (
@@ -19,6 +20,7 @@ function CategorySelector({ categories, history }) {
   };
 
   const handleClickAll = async () => {
+    setRedirect(false);
     if (history === '/meals') {
       setRecipes(await fetchMealsByName(''))
     } else (

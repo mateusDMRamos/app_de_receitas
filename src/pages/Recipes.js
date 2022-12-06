@@ -9,7 +9,7 @@ import { fetchDrinksByName, fetchDrinksCategory } from '../services/drinks';
 import CategorySelector from '../components/CategorySelector';
 
 function Recipes({ history }) {
-  const { setHistory, recipes, setRecipes } = useContext(recipesContext);
+  const { setHistory, recipes, setRecipes, redirect } = useContext(recipesContext);
   const [firstRecipes, setFirstRecipes] = useState([]);
   const [categories, setCategories] = useState([]);
 
@@ -40,7 +40,7 @@ function Recipes({ history }) {
 
   useEffect(() => {
     if (recipes.drinks) {
-      if (recipes.drinks.length === 1) {
+      if (recipes.drinks.length === 1 && redirect) {
         history.push(`/drinks/${recipes.drinks[0].idDrink}`);
         setRecipes({ notSearched: true });
       }
@@ -50,7 +50,7 @@ function Recipes({ history }) {
       ));
       setFirstRecipes(firstRecipesFound);
     } else if (recipes.meals) {
-      if (recipes.meals.length === 1) {
+      if (recipes.meals.length === 1 && redirect) {
         history.push(`/meals/${recipes.meals[0].idMeal}`);
         setRecipes({ notSearched: true });
       }
@@ -62,7 +62,7 @@ function Recipes({ history }) {
     } else if (!recipes.notSearched) {
       global.alert('Sorry, we haven\'t found any recipes for these filters.');
     }
-  }, [recipes, history, setRecipes]);
+  }, [redirect, recipes, setRecipes, history]);
 
   return (
     <>
