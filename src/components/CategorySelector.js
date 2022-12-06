@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 // import { Link } from 'react-router-dom';
 import '../App.css';
@@ -9,22 +9,28 @@ import { fetchDrinksByCategory, fetchDrinksByName }
   from '../services/drinks';
 
 function CategorySelector({ categories, history }) {
+  const [filter, setFilter] = useState('');
   const { setRecipes, setRedirect } = useContext(recipesContext);
-  const handleClick = async (category) => {
-    setRedirect(false);
-    if (history === '/meals') {
-      setRecipes(await fetchMealsByCategory(category));
-    } else {
-      setRecipes(await fetchDrinksByCategory(category));
-    }
-  };
-
   const handleClickAll = async () => {
     setRedirect(false);
+    setFilter('');
     if (history === '/meals') {
       setRecipes(await fetchMealsByName(''));
     } else {
       setRecipes(await fetchDrinksByName(''));
+    }
+  };
+  const handleClick = async (category) => {
+    setRedirect(false);
+    if (category === filter) {
+      handleClickAll();
+    } else {
+      setFilter(category);
+      if (history === '/meals') {
+        setRecipes(await fetchMealsByCategory(category));
+      } else {
+        setRecipes(await fetchDrinksByCategory(category));
+      }
     }
   };
 
