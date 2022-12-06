@@ -1,15 +1,11 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import renderWithRouter from './helpers';
 import App from '../App';
-// import {
-//   fetchMealsByIngredients, fetchMealsByName, fetchMealsByFirstLetter,
-// } from '../services/meals';
-// import {
-//   fetchDrinksByIngredients, fetchDrinksByName, fetchDrinksByFirstLetter,
-// } from '../services/drinks';
+import { allMeals } from './mocks/mealsFetchMocks';
+import mealsCategoriesMocks from './mocks/mealsCategoriesMock';
 
 const TEST_EMAIL = 'teste@email.com';
 const PASSWORD = '1234567';
@@ -19,12 +15,21 @@ const inputBtn = 'login-submit-btn';
 const submitButtonSearch = 'exec-search-btn';
 const searchIcon = 'search-top-btn';
 const searcInputHeader = 'search-input';
+const ingredientRadioBtn = 'ingredient-search-radio';
 
-describe('Testa o componente searchBar', () => {
+const allMealsFetch = () => Promise.resolve({
+  json: () => Promise.resolve(allMeals),
+});
+
+const mealCategoriesFetch = () => Promise.resolve({
+  json: () => Promise.resolve(mealsCategoriesMocks),
+});
+
+describe('Testa o componente SearchBar na tela Drinks', () => {
   beforeEach(() => {
-    global.fetch = jest.fn(() => Promise.resolve({
-      json: () => Promise.resolve({}),
-    }));
+    global.fetch = jest.fn()
+      .mockImplementationOnce(allMealsFetch)
+      .mockImplementationOnce(mealCategoriesFetch);
   });
 
   afterEach(() => {
@@ -42,7 +47,7 @@ describe('Testa o componente searchBar', () => {
     userEvent.click(inputBtnLogin);
 
     const mealsTitle = await screen.getByTestId('page-title');
-    const ingredientRadio = await screen.getByTestId('ingredient-search-radio');
+    const ingredientRadio = await screen.getByTestId(ingredientRadioBtn);
     const nameRadio = await screen.getByTestId('name-search-radio');
     const firstLetterRadio = await screen.getByTestId('first-letter-search-radio');
     const searchButton = await screen.getByTestId(submitButtonSearch);
@@ -61,7 +66,7 @@ describe('Testa o componente searchBar', () => {
       history.push('/meals');
     });
 
-    const ingredientRadio = screen.getByTestId('ingredient-search-radio');
+    const ingredientRadio = screen.getByTestId(ingredientRadioBtn);
     const searchIconHeader = screen.getByTestId(searchIcon);
 
     userEvent.click(searchIconHeader);
@@ -124,10 +129,9 @@ describe('Testa o componente searchBar', () => {
     userEvent.click(searchButton);
     expect(global.alert).toHaveBeenCalledWith('Your search must have only 1 (one) character');
   });
-  it('Verifica se os radioButton name funciona', () => {
-    global.alert = jest.fn(() => {});
-
+  it('Verifica se os radioButton name funciona', async () => {
     const { history } = renderWithRouter(<App />);
+    global.alert = jest.fn(() => {});
 
     act(() => {
       history.push('/meals');
@@ -139,10 +143,14 @@ describe('Testa o componente searchBar', () => {
 
     const searchInputHeader = screen.getByTestId(searcInputHeader);
 
-    userEvent.type(searchInputHeader, 'rice');
+    userEvent.type(searchInputHeader, 'Feijão');
+
+    const ingredientRadio = screen.getByTestId(ingredientRadioBtn);
+
+    userEvent.click(ingredientRadio);
 
     const searchButton = screen.getByTestId(submitButtonSearch);
     userEvent.click(searchButton);
-    expect(global.alert).toHaveBeenCalledWith('Sorry, we haven\'t found any recipes for these filters.');
+    await waitFor(() => expect(global.alert).toHaveBeenCalledWith('Sorry, we haven\'t found any recipes for these filters.'));
   });
 });
