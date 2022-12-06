@@ -7,7 +7,7 @@ export default function RecipesProvider({ children }) {
   const [searchText, setSearchText] = useState('');
   const [historyPathname, setHistory] = useState('');
   const [recipes, setRecipes] = useState({ notSearched: true });
-  const [redirect, setRedirect] = useState(false);
+  const [redirect, setRedirect] = useState(true);
 
   const value = useMemo(() => ({
     searchRadio,
