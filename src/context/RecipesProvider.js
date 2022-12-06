@@ -7,6 +7,7 @@ export default function RecipesProvider({ children }) {
   const [searchText, setSearchText] = useState('');
   const [historyPathname, setHistory] = useState('');
   const [recipes, setRecipes] = useState({ notSearched: true });
+  const [redirect, setRedirect] = useState(false);
 
   const value = useMemo(() => ({
     searchRadio,
@@ -17,7 +18,9 @@ export default function RecipesProvider({ children }) {
     setHistory,
     recipes,
     setRecipes,
-  }), [recipes, searchRadio, searchText, historyPathname]);
+    redirect,
+    setRedirect,
+  }), [redirect, recipes, searchRadio, searchText, historyPathname]);
 
   return (
     <recipesContext.Provider value={ value }>

@@ -25,3 +25,10 @@ export const fetchMealsCategory = async () => {
   const data = await response.json();
   return data;
 };
+
+export const fetchMealsByCategory = async (mealCategory) => {
+  const endPoint = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${mealCategory}`;
+  const response = await fetch(endPoint);
+  const data = await response.json();
+  return data;
+};

@@ -11,7 +11,7 @@ import {
 
 function SearchBar() {
   const {
-    setSearchRadio, searchRadio, searchText, historyPathname, setRecipes,
+    setSearchRadio, searchRadio, searchText, historyPathname, setRecipes, setRedirect,
   } = useContext(recipesContext);
 
   const firstLetter = 'first-letter';
@@ -49,6 +49,7 @@ function SearchBar() {
   };
 
   const handleClick = () => {
+    setRedirect(true);
     if (historyPathname === '/meals') {
       handleClickMeals();
     } else {

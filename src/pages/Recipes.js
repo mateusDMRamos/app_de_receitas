@@ -73,7 +73,7 @@ function Recipes({ history }) {
             : <Header title="Drinks" searchImage />
         }
       </header>
-      <CategorySelector categories={ categories } />
+      <CategorySelector categories={ categories } history={ history.location.pathname } />
       {firstRecipes.map((recipe, index) => {
         if (recipe.idDrink) {
           return (
