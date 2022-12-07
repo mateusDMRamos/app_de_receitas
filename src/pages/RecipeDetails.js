@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { fetchMealsDetails } from '../services/meals';
 import { fetchDrinksDetails } from '../services/drinks';
+import recipesContext from '../context/recipesContext';
 
 function RecipeDetails({ history, match: { params: { id } } }) {
-  const [details, setDetails] = useState('');
+  const { details, setDetails } = useContext(recipesContext);
   console.log(details);
   useEffect(() => {
     const { pathname } = history.location;
@@ -19,7 +20,7 @@ function RecipeDetails({ history, match: { params: { id } } }) {
       }
     };
     results();
-  }, [history.location, id]);
+  }, [history.location, id, setDetails]);
   return (
     <header>
       <h1>Recipe details</h1>
