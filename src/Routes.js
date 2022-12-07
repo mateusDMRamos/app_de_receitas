@@ -6,11 +6,14 @@ import Profile from './pages/Profile';
 import DoneRecipes from './pages/DoneRecipes';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import RecipeDetails from './pages/RecipeDetails';
+import RecipeInProgress from './pages/RecipeInProgress';
 
 function Routes() {
   return (
     <Switch>
       <Route exact path="/" component={ Login } />
+      <Route path="/meals/:id/in-progress" component={ RecipeInProgress } />
+      <Route path="/drinks/:id/in-progress" component={ RecipeInProgress } />
       <Route path="/meals/:id" component={ RecipeDetails } />
       <Route path="/drinks/:id" component={ RecipeDetails } />
       <Route path="/meals" component={ Recipes } />
