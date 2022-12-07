@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { fetchMealsDetails } from '../services/meals';
 import { fetchDrinksDetails } from '../services/drinks';
+import '../style/RecipeDetails.css';
 
 function RecipeDetails({ history, match: { params: { id } } }) {
   const [details, setDetails] = useState('');
@@ -24,7 +25,13 @@ function RecipeDetails({ history, match: { params: { id } } }) {
     <header>
       <h1>Recipe details</h1>
       <Link to={ `${history.location.pathname}/in-progress` }>
-        <button type="button" data-testid="start-recipe-btn">Start Recipe</button>
+        <button
+          type="button"
+          data-testid="start-recipe-btn"
+          className="btnPageDetails"
+        >
+          Start Recipe
+        </button>
       </Link>
     </header>
   );
