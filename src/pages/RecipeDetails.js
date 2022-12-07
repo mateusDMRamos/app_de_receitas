@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { fetchMealsDetails } from '../services/meals';
@@ -8,6 +8,7 @@ import '../style/RecipeDetails.css';
 
 function RecipeDetails({ history, match: { params: { id } } }) {
   const { details, setDetails } = useContext(recipesContext);
+  const { recipeStatus, setRecipeStatus } = useState('notStarted');
   console.log(details);
   useEffect(() => {
     const { pathname } = history.location;
@@ -20,20 +21,36 @@ function RecipeDetails({ history, match: { params: { id } } }) {
         setDetails(responseDrinksDetails.drinks[0]);
       }
     };
+
+    const verifyRecipeStatus = () => {
+      if (localStorage.getItem('doneRecipes')) {
+        const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+        if (doneRecipes.some((recipe) => recipe.id === id)) {
+          setRecipeStatus('finalized');
+        }
+      }
+    };
     results();
-  }, [history.location, id, setDetails]);
+    verifyRecipeStatus();
+  }, [history.location, id, setDetails, setRecipeStatus]);
+
   return (
     <header>
       <h1>Recipe details</h1>
-      <Link to={ `${history.location.pathname}/in-progress` }>
-        <button
-          type="button"
-          data-testid="start-recipe-btn"
-          className="btnPageDetails"
-        >
-          Start Recipe
-        </button>
-      </Link>
+      {recipeStatus === 'finalized'
+        ? ''
+        : (
+          <Link to={ `${history.location.pathname}/in-progress` }>
+            <button
+              type="button"
+              data-testid="start-recipe-btn"
+              className="btnPageDetails"
+            >
+              Start Recipe
+            </button>
+          </Link>
+        ) }
+
     </header>
   );
 }
