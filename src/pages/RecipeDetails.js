@@ -8,7 +8,7 @@ import '../style/RecipeDetails.css';
 
 function RecipeDetails({ history, match: { params: { id } } }) {
   const { setDetails } = useContext(recipesContext);
-
+  const { recipeStatus, setRecipeStatus } = useState('notStarted');
   useEffect(() => {
     const { pathname } = history.location;
     const results = async () => {
