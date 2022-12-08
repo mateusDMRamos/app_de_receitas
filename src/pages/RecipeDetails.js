@@ -9,7 +9,7 @@ import RecipeList from '../components/RecipeList';
 
 function RecipeDetails({ history, match: { params: { id } } }) {
   const { setDetails } = useContext(recipesContext);
-  const { recipeStatus, setRecipeStatus } = useState('notStarted');
+  const [recipeStatus, setRecipeStatus] = useState('notStarted');
   useEffect(() => {
     const { pathname } = history.location;
     const results = async () => {
@@ -27,6 +27,15 @@ function RecipeDetails({ history, match: { params: { id } } }) {
         const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
         if (doneRecipes.some((recipe) => recipe.id === id)) {
           setRecipeStatus('finalized');
+        }
+      }
+      if (localStorage.getItem('inProgressRecipes')) {
+        const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+        if (inProgressRecipes.meals && inProgressRecipes.meals[id]) {
+          setRecipeStatus('inProgress');
+        }
+        if (inProgressRecipes.drinks && inProgressRecipes.drinks[id]) {
+          setRecipeStatus('inProgress');
         }
       }
     };
@@ -54,6 +63,17 @@ function RecipeDetails({ history, match: { params: { id } } }) {
             </button>
           </Link>
         ) }
+      {recipeStatus === 'inProgress'
+        ? (
+          <button
+            type="button"
+            data-testid="start-recipe-btn"
+            className="btnPageDetails"
+          >
+            Continue Recipe
+          </button>
+        )
+        : ''}
 
     </header>
   );
