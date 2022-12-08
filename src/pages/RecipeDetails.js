@@ -80,7 +80,6 @@ function RecipeDetails({ history, match: { params: { id } } }) {
           </button>
         )
         : ''}
-
     </header>
   );
 }
