@@ -6,6 +6,7 @@ import recipesContext from '../context/recipesContext';
 function RecipeList({ mealsPathname, inProgress }) {
   const { details } = useContext(recipesContext);
   const [ingredients, setIngredients] = useState([]);
+  const [usedIngredients, setUsedIngredients] = useState([]);
   const [measures, setMeasures] = useState([]);
 
   useEffect(() => {
@@ -18,11 +19,84 @@ function RecipeList({ mealsPathname, inProgress }) {
     setMeasures(measureKeys);
   }, [details]);
 
+  useEffect(() => {
+    if (JSON.parse(localStorage.getItem('inProgressRecipes')) === null) {
+      const newRecipesKey = {
+        drinks: {},
+        meals: {},
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(newRecipesKey));
+    }
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (mealsPathname) {
+      const mealsInProgress = Object.keys(inProgressRecipes.meals);
+      const verifyProgress = mealsInProgress.some((meal) => meal === details.idMeal);
+      if (verifyProgress) {
+        setUsedIngredients(inProgressRecipes.meals[details.idMeal]);
+      } else {
+        const newRecipeInProgress = {
+          drinks: { ...inProgressRecipes.drinks },
+          meals: {
+            ...inProgressRecipes.meals,
+            [details.idMeal]: [],
+          },
+        };
+        localStorage.setItem('inProgressRecipes', JSON.stringify(newRecipeInProgress));
+      }
+    } else {
+      const drinksInProgress = Object.keys(inProgressRecipes.drinks);
+      const verifyProgress = drinksInProgress.some((drink) => drink === details.idDrink);
+      if (verifyProgress) {
+        setUsedIngredients(inProgressRecipes.drinks[details.idDrink]);
+      } else {
+        const newRecipeInProgress = {
+          drinks: {
+            ...inProgressRecipes.drinks,
+            [details.idDrink]: [],
+          },
+          meals: {
+            ...inProgressRecipes.meals,
+          },
+        };
+        localStorage.setItem('inProgressRecipes', JSON.stringify(newRecipeInProgress));
+      }
+    }
+  }, [details.idDrink, details.idMeal, mealsPathname]);
+
+  useEffect(() => {
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (mealsPathname) {
+      const attRecipe = {
+        drinks: { ...inProgressRecipes.drinks },
+        meals: {
+          ...inProgressRecipes.meals,
+          [details.idMeal]: usedIngredients,
+        },
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(attRecipe));
+    } else {
+      const attRecipe = {
+        drinks: {
+          ...inProgressRecipes.drinks,
+          [details.idDrink]: usedIngredients,
+        },
+        meals: {
+          ...inProgressRecipes.meals,
+        },
+      };
+      localStorage.setItem('inProgressRecipes', JSON.stringify(attRecipe));
+    }
+  }, [details.idDrink, details.idMeal, mealsPathname, usedIngredients]);
+
   const handleCheck = ({ target }) => {
     if (target.checked) {
       target.parentElement.classList = 'checkedLine';
+      setUsedIngredients([...usedIngredients, target.name]);
     } else {
       target.parentElement.classList = '';
+      const newCheckedIngredients = usedIngredients
+        .filter((ingredient) => ingredient !== target.name);
+      setUsedIngredients(newCheckedIngredients);
     }
   };
 
@@ -96,16 +170,46 @@ function RecipeList({ mealsPathname, inProgress }) {
             </div>
           )
       }
-      {inProgress ? ingredients.map((ingredient, index) => (
-        <label
-          key={ index }
-          htmlFor={ ingredient }
-          data-testid={ `${index}-ingredient-step` }
-        >
-          <input onClick={ handleCheck } type="checkbox" id={ ingredient } />
-          {`${details[ingredient]} - ${details[measures[index]]}`}
-        </label>
-      )) : ingredients.map((ingredient, index) => (
+      {inProgress ? ingredients.map((ingredient, index) => {
+        const verifyCheck = usedIngredients
+          .some((usedIngredient) => (
+            usedIngredient === `${details[ingredient]} - ${details[measures[index]]}`
+          ));
+        if (verifyCheck) {
+          return (
+            <label
+              key={ index }
+              htmlFor={ ingredient }
+              data-testid={ `${index}-ingredient-step` }
+              className="checkedLine"
+            >
+              <input
+                onClick={ handleCheck }
+                type="checkbox"
+                id={ ingredient }
+                name={ `${details[ingredient]} - ${details[measures[index]]}` }
+                checked
+              />
+              {`${details[ingredient]} - ${details[measures[index]]}`}
+            </label>
+          );
+        }
+        return (
+          <label
+            key={ index }
+            htmlFor={ ingredient }
+            data-testid={ `${index}-ingredient-step` }
+          >
+            <input
+              onClick={ handleCheck }
+              type="checkbox"
+              id={ ingredient }
+              name={ `${details[ingredient]} - ${details[measures[index]]}` }
+            />
+            {`${details[ingredient]} - ${details[measures[index]]}`}
+          </label>
+        );
+      }) : ingredients.map((ingredient, index) => (
         <li
           key={ index }
           data-testid={ `${index}-ingredient-name-and-measure` }
