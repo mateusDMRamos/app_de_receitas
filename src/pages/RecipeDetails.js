@@ -7,9 +7,8 @@ import recipesContext from '../context/recipesContext';
 import '../style/RecipeDetails.css';
 
 function RecipeDetails({ history, match: { params: { id } } }) {
-  const { details, setDetails } = useContext(recipesContext);
-  const { recipeStatus, setRecipeStatus } = useState('notStarted');
-  console.log(details);
+  const { setDetails } = useContext(recipesContext);
+
   useEffect(() => {
     const { pathname } = history.location;
     const results = async () => {

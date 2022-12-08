@@ -9,7 +9,8 @@ import { fetchDrinksByName, fetchDrinksCategory } from '../services/drinks';
 import CategorySelector from '../components/CategorySelector';
 
 function Recipes({ history }) {
-  const { setHistory, recipes, setRecipes, redirect } = useContext(recipesContext);
+  const { setHistory, recipes, setRecipes,
+    redirect } = useContext(recipesContext);
   const [firstRecipes, setFirstRecipes] = useState([]);
   const [categories, setCategories] = useState([]);
 
