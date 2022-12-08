@@ -1,6 +1,8 @@
 import React, { useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import '../style/RecipeInProgress.css';
+import copy from 'clipboard-copy';
+import shareIcon from '../images/shareIcon.svg';
 import recipesContext from '../context/recipesContext';
 
 function RecipeList({ mealsPathname, inProgress }) {
@@ -8,6 +10,7 @@ function RecipeList({ mealsPathname, inProgress }) {
   const [ingredients, setIngredients] = useState([]);
   const [usedIngredients, setUsedIngredients] = useState([]);
   const [measures, setMeasures] = useState([]);
+  const [linkCopied, setLinkCopied] = useState(false);
 
   useEffect(() => {
     const keys = Object.keys(details);
@@ -100,6 +103,11 @@ function RecipeList({ mealsPathname, inProgress }) {
     }
   };
 
+  const handleCopy = (url) => {
+    setLinkCopied(true);
+    copy(url);
+  };
+
   return (
     <div>
       {
@@ -129,8 +137,12 @@ function RecipeList({ mealsPathname, inProgress }) {
                 data-testid="video"
                 allowFullScreen
               />
-              <button type="button" data-testid="share-btn">
-                Compartilhar
+              <button
+                type="button"
+                data-testid="share-btn"
+                onClick={ () => { handleCopy(window.location.href); } }
+              >
+                <img src={ shareIcon } alt="share button" />
               </button>
               <button type="button" data-testid="favorite-btn">
                 Favoritar
@@ -158,8 +170,12 @@ function RecipeList({ mealsPathname, inProgress }) {
               <p data-testid="instructions">
                 {details.strInstructions}
               </p>
-              <button type="button" data-testid="share-btn">
-                Compartilhar
+              <button
+                type="button"
+                data-testid="share-btn"
+                onClick={ () => { handleCopy(window.location.href); } }
+              >
+                <img src={ shareIcon } alt="share button" />
               </button>
               <button type="button" data-testid="favorite-btn">
                 Favoritar
@@ -170,6 +186,7 @@ function RecipeList({ mealsPathname, inProgress }) {
             </div>
           )
       }
+      { linkCopied ? <p>Link copied!</p> : ''}
       {inProgress ? ingredients.map((ingredient, index) => {
         const verifyCheck = usedIngredients
           .some((usedIngredient) => (
