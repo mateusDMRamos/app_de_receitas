@@ -22,13 +22,19 @@ function RecipeDetails({ history, match: { params: { id } } }) {
       }
     };
 
-    const verifyRecipeStatus = () => {
+    results();
+  }, [history.location, id, setDetails, setRecipeStatus]);
+
+  useEffect(() => {
+    const verifyDoneRecipes = () => {
       if (localStorage.getItem('doneRecipes')) {
         const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
         if (doneRecipes.some((recipe) => recipe.id === id)) {
           setRecipeStatus('finalized');
         }
       }
+    };
+    const verifyInProgress = () => {
       if (localStorage.getItem('inProgressRecipes')) {
         const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
         if (inProgressRecipes.meals && inProgressRecipes.meals[id]) {
@@ -39,9 +45,9 @@ function RecipeDetails({ history, match: { params: { id } } }) {
         }
       }
     };
-    results();
-    verifyRecipeStatus();
-  }, [history.location, id, setDetails, setRecipeStatus]);
+    verifyDoneRecipes();
+    verifyInProgress();
+  }, [setRecipeStatus, id]);
 
   return (
     <header>
