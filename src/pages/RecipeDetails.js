@@ -5,6 +5,7 @@ import { fetchMealsDetails } from '../services/meals';
 import { fetchDrinksDetails } from '../services/drinks';
 import recipesContext from '../context/recipesContext';
 import '../style/RecipeDetails.css';
+import RecipeList from '../components/RecipeList';
 
 function RecipeDetails({ history, match: { params: { id } } }) {
   const { setDetails } = useContext(recipesContext);
@@ -36,6 +37,10 @@ function RecipeDetails({ history, match: { params: { id } } }) {
   return (
     <header>
       <h1>Recipe details</h1>
+      <RecipeList
+        mealsPathname={ history.location.pathname.includes('meals') }
+        inProgress={ false }
+      />
       {recipeStatus === 'finalized'
         ? ''
         : (
