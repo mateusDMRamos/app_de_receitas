@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import '../style/RecipeInProgress.css';
 import recipesContext from '../context/recipesContext';
 
 function RecipeList({ mealsPathname, inProgress }) {
@@ -16,6 +17,14 @@ function RecipeList({ mealsPathname, inProgress }) {
     const measureKeys = keys.filter((key) => key.includes('strMeasure'));
     setMeasures(measureKeys);
   }, [details]);
+
+  const handleCheck = ({ target }) => {
+    if (target.checked) {
+      target.parentElement.classList = 'checkedLine';
+    } else {
+      target.parentElement.classList = '';
+    }
+  };
 
   return (
     <div>
@@ -65,7 +74,7 @@ function RecipeList({ mealsPathname, inProgress }) {
                 {details.strDrink}
               </h1>
               <h6 data-testid="recipe-category">
-                { `${details.strCategory} - ${details.strAlcoholic}` }
+                {`${details.strCategory} - ${details.strAlcoholic}`}
               </h6>
               <img
                 src={ details.strDrinkThumb }
@@ -93,7 +102,7 @@ function RecipeList({ mealsPathname, inProgress }) {
           htmlFor={ ingredient }
           data-testid={ `${index}-ingredient-step` }
         >
-          <input type="checkbox" id={ ingredient } />
+          <input onClick={ handleCheck } type="checkbox" id={ ingredient } />
           {`${details[ingredient]} - ${details[measures[index]]}`}
         </label>
       )) : ingredients.map((ingredient, index) => (
@@ -103,7 +112,7 @@ function RecipeList({ mealsPathname, inProgress }) {
         >
           {`${details[ingredient]} - ${details[measures[index]]}`}
         </li>
-      )) }
+      ))}
     </div>
   );
 }
