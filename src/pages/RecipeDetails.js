@@ -9,7 +9,7 @@ import RecipeList from '../components/RecipeList';
 
 function RecipeDetails({ history, match: { params: { id } } }) {
   const { setDetails } = useContext(recipesContext);
-  const { recipeStatus, setRecipeStatus } = useState('notStarted');
+  const [recipeStatus, setRecipeStatus] = useState('notStarted');
   useEffect(() => {
     const { pathname } = history.location;
     const results = async () => {
@@ -22,7 +22,11 @@ function RecipeDetails({ history, match: { params: { id } } }) {
       }
     };
 
-    const verifyRecipeStatus = () => {
+    results();
+  }, [history.location, id, setDetails, setRecipeStatus]);
+
+  useEffect(() => {
+    const verifyDoneRecipes = () => {
       if (localStorage.getItem('doneRecipes')) {
         const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
         if (doneRecipes.some((recipe) => recipe.id === id)) {
@@ -30,9 +34,20 @@ function RecipeDetails({ history, match: { params: { id } } }) {
         }
       }
     };
-    results();
-    verifyRecipeStatus();
-  }, [history.location, id, setDetails, setRecipeStatus]);
+    const verifyInProgress = () => {
+      if (localStorage.getItem('inProgressRecipes')) {
+        const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+        if (inProgressRecipes.meals && inProgressRecipes.meals[id]) {
+          setRecipeStatus('inProgress');
+        }
+        if (inProgressRecipes.drinks && inProgressRecipes.drinks[id]) {
+          setRecipeStatus('inProgress');
+        }
+      }
+    };
+    verifyDoneRecipes();
+    verifyInProgress();
+  }, [setRecipeStatus, id]);
 
   return (
     <header>
@@ -54,6 +69,17 @@ function RecipeDetails({ history, match: { params: { id } } }) {
             </button>
           </Link>
         ) }
+      {recipeStatus === 'inProgress'
+        ? (
+          <button
+            type="button"
+            data-testid="start-recipe-btn"
+            className="btnPageDetails"
+          >
+            Continue Recipe
+          </button>
+        )
+        : ''}
 
     </header>
   );
