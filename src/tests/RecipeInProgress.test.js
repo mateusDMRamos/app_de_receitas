@@ -4,10 +4,13 @@ import { act } from 'react-dom/test-utils';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from './helpers';
 import { oneMeal, newOneMeal } from './mocks/mealsFetchMocks';
-import { oneDrink, newOneDrink } from './mocks/drinksFetchMocks';
+import { oneDrink } from './mocks/drinksFetchMocks';
 import App from '../App';
 
 describe('Testing RecipeInProgress page', () => {
+  const urlMeals = '/meals/52771/in-progress';
+  const idFinishButton = 'finish-recipe-btn';
+
   const oneMealFetch = () => Promise.resolve({
     json: () => Promise.resolve(oneMeal),
   });
@@ -20,9 +23,9 @@ describe('Testing RecipeInProgress page', () => {
     json: () => Promise.resolve(oneDrink),
   });
 
-  const newOneDrinkFetch = () => Promise.resolve({
-    json: () => Promise.resolve(newOneDrink),
-  });
+  // const newOneDrinkFetch = () => Promise.resolve({
+  //   json: () => Promise.resolve(newOneDrink),
+  // });
 
   beforeEach(() => {
     global.fetch = jest.fn()
@@ -35,7 +38,7 @@ describe('Testing RecipeInProgress page', () => {
   test('se a API correta, de meals é chamada', () => {
     const { history } = renderWithRouter(<App />);
     act(() => {
-      history.push('/meals/52771/in-progress');
+      history.push(urlMeals);
     });
     expect(global.fetch).toHaveBeenCalled();
     expect(global.fetch).toHaveBeenCalledWith(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${52771}`);
@@ -58,7 +61,7 @@ describe('Testing RecipeInProgress page', () => {
       history.push('drinks/178319/in-progress');
     });
     const checkbox = await screen.findAllByRole('checkbox');
-    const finishButton = screen.getByTestId('finish-recipe-btn');
+    const finishButton = screen.getByTestId(idFinishButton);
     expect(checkbox[0]).toBeInTheDocument();
     expect(finishButton).toBeInTheDocument();
 
@@ -79,11 +82,11 @@ describe('Testing RecipeInProgress page', () => {
   test('se os checkboxs funcionam e o botão de finalizar habilita na pagina de Meals', async () => {
     const { history } = renderWithRouter(<App />);
     act(() => {
-      history.push('/meals/52771/in-progress');
+      history.push(urlMeals);
     });
 
     const checkbox = await screen.findAllByRole('checkbox');
-    const finishButton = screen.getByTestId('finish-recipe-btn');
+    const finishButton = screen.getByTestId(idFinishButton);
     expect(checkbox[0]).toBeInTheDocument();
     expect(finishButton).toBeInTheDocument();
 
@@ -101,11 +104,11 @@ describe('Testing RecipeInProgress page', () => {
 
     const { history } = renderWithRouter(<App />);
     act(() => {
-      history.push('/meals/52771/in-progress');
+      history.push(urlMeals);
     });
 
     const checkbox = await screen.findAllByRole('checkbox');
-    const finishButton = screen.getByTestId('finish-recipe-btn');
+    const finishButton = screen.getByTestId(idFinishButton);
     expect(checkbox[0]).toBeInTheDocument();
     expect(finishButton).toBeInTheDocument();
 
