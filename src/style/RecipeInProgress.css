@@ -5,3 +5,11 @@
 .recipe-img {
   max-width: 100%;
 }
+body {
+  padding: 30px;
+}
+
+.btnFinish {
+  bottom: 0;
+  position: fixed;
+}

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import recipesContext from '../context/recipesContext';
@@ -8,7 +8,8 @@ import RecipeList from '../components/RecipeList';
 
 function RecipeInProgress({ history: { location: { pathname } },
   match: { params: { id } } }) {
-  const { setDetails } = useContext(recipesContext);
+  const { setDetails, ingredients, usedIngredients } = useContext(recipesContext);
+  const [disable, setDisable] = useState(true);
 
   useEffect(() => {
     const results = async () => {
@@ -23,6 +24,13 @@ function RecipeInProgress({ history: { location: { pathname } },
     results();
   }, [pathname, id, setDetails]);
 
+  useEffect(() => {
+    if (ingredients.length === usedIngredients.length) {
+      setDisable(false);
+    } else {
+      setDisable(true);
+    }
+  }, [ingredients, usedIngredients]);
   return (
     <div>
       <Header title="Recipe In Progress" searchIcon={ false } />
@@ -30,6 +38,14 @@ function RecipeInProgress({ history: { location: { pathname } },
         mealsPathname={ pathname.includes('meals') }
         inProgress
       />
+      <button
+        data-testid="finish-recipe-btn"
+        type="button"
+        className="btnFinish"
+        disabled={ disable }
+      >
+        Finish Recipe
+      </button>
     </div>
   );
 }
