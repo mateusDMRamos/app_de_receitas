@@ -1,3 +1,12 @@
 .checkedLine {
   text-decoration: line-through solid black;
 }
+
+body {
+  padding: 30px;
+}
+
+.btnFinish {
+  bottom: 0;
+  position: fixed;
+}
