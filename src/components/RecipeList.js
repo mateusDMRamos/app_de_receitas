@@ -104,8 +104,13 @@ function RecipeList({ mealsPathname, inProgress }) {
   };
 
   const handleCopy = (url) => {
+    const urlDivisions = 5;
+    const urlDivs = url.split('/', urlDivisions);
+    const newUrl = (
+      `${urlDivs[0]}/${urlDivs[1]}/${urlDivs[2]}/${urlDivs[3]}/${urlDivs[4]}`
+    );
     setLinkCopied(true);
-    copy(url);
+    copy(newUrl);
   };
 
   return (
