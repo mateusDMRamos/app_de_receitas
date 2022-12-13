@@ -151,9 +151,6 @@ function RecipeList({ mealsPathname, inProgress }) {
               <button type="button" data-testid="favorite-btn">
                 Favoritar
               </button>
-              <button type="button" data-testid="finish-recipe-btn">
-                Finalizar
-              </button>
             </div>
           )
           : (
@@ -183,9 +180,6 @@ function RecipeList({ mealsPathname, inProgress }) {
               </button>
               <button type="button" data-testid="favorite-btn">
                 Favoritar
-              </button>
-              <button type="button" data-testid="finish-recipe-btn">
-                Finalizar
               </button>
             </div>
           )
