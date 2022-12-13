@@ -1,3 +1,7 @@
 .checkedLine {
   text-decoration: line-through solid black;
 }
+
+.recipe-img {
+  max-width: 100%;
+}
