@@ -39,3 +39,10 @@ export const fetchDrinksDetails = async (drinkId) => {
   const data = await response.json();
   return data;
 };
+
+export const fetchDrinksRecomendation = async () => {
+  const endPoint = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+  const response = await fetch(endPoint);
+  const data = await response.json();
+  return data;
+};

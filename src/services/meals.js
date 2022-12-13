@@ -39,3 +39,10 @@ export const fetchMealsDetails = async (mealId) => {
   const data = await response.json();
   return data;
 };
+
+export const fetchMealsRecomendation = async () => {
+  const endPoint = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+  const response = await fetch(endPoint);
+  const data = await response.json();
+  return data;
+};
