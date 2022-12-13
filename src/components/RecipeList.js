@@ -6,9 +6,8 @@ import shareIcon from '../images/shareIcon.svg';
 import recipesContext from '../context/recipesContext';
 
 function RecipeList({ mealsPathname, inProgress }) {
-  const { details } = useContext(recipesContext);
-  const [ingredients, setIngredients] = useState([]);
-  const [usedIngredients, setUsedIngredients] = useState([]);
+  const { details, ingredients, usedIngredients,
+    setIngredients, setUsedIngredients } = useContext(recipesContext);
   const [measures, setMeasures] = useState([]);
   const [linkCopied, setLinkCopied] = useState(false);
 
@@ -20,7 +19,7 @@ function RecipeList({ mealsPathname, inProgress }) {
     setIngredients(ingredientNames);
     const measureKeys = keys.filter((key) => key.includes('strMeasure'));
     setMeasures(measureKeys);
-  }, [details]);
+  }, [details, setIngredients]);
 
   useEffect(() => {
     if (JSON.parse(localStorage.getItem('inProgressRecipes')) === null) {
@@ -64,7 +63,7 @@ function RecipeList({ mealsPathname, inProgress }) {
         localStorage.setItem('inProgressRecipes', JSON.stringify(newRecipeInProgress));
       }
     }
-  }, [details.idDrink, details.idMeal, mealsPathname]);
+  }, [details.idDrink, details.idMeal, mealsPathname, setUsedIngredients]);
 
   useEffect(() => {
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
