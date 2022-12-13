@@ -127,6 +127,7 @@ function RecipeList({ mealsPathname, inProgress }) {
                 {details.strCategory}
               </h6>
               <img
+                className="recipe-img"
                 src={ details.strMealThumb }
                 alt={ details.strMeal }
                 data-testid="recipe-photo"
@@ -164,6 +165,7 @@ function RecipeList({ mealsPathname, inProgress }) {
                 {`${details.strCategory} - ${details.strAlcoholic}`}
               </h6>
               <img
+                className="recipe-img"
                 src={ details.strDrinkThumb }
                 alt={ details.strDrink }
                 data-testid="recipe-photo"
@@ -178,9 +180,7 @@ function RecipeList({ mealsPathname, inProgress }) {
               >
                 <img src={ shareIcon } alt="share button" />
               </button>
-              <button type="button" data-testid="favorite-btn">
-                Favoritar
-              </button>
+              <button type="button" data-testid="favorite-btn">Favoritar</button>
             </div>
           )
       }
