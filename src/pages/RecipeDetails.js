@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { fetchMealsDetails } from '../services/meals';
-import { fetchDrinksDetails } from '../services/drinks';
+import { fetchMealsDetails, fetchMealsRecomendation } from '../services/meals';
+import { fetchDrinksDetails, fetchDrinksRecomendation } from '../services/drinks';
 import recipesContext from '../context/recipesContext';
 import '../style/RecipeDetails.css';
 import RecipeList from '../components/RecipeList';
@@ -10,6 +10,7 @@ import RecipeList from '../components/RecipeList';
 function RecipeDetails({ history, match: { params: { id } } }) {
   const { setDetails } = useContext(recipesContext);
   const [recipeStatus, setRecipeStatus] = useState('notStarted');
+  const [recipeRecomendations, setRecipeRecomendations] = useState({});
   useEffect(() => {
     const { pathname } = history.location;
     const results = async () => {
@@ -48,6 +49,21 @@ function RecipeDetails({ history, match: { params: { id } } }) {
     verifyDoneRecipes();
     verifyInProgress();
   }, [setRecipeStatus, id]);
+
+  useEffect(() => {
+    const { pathname } = history.location;
+    const results = async () => {
+      if (pathname.includes('meals')) {
+        const responseDrinksRecomendation = await fetchDrinksRecomendation();
+        setRecipeRecomendations(responseDrinksRecomendation);
+      } else {
+        const responseMealsRecomendation = await fetchMealsRecomendation();
+        setRecipeRecomendations(responseMealsRecomendation);
+      }
+    };
+    console.log(recipeRecomendations);
+    results();
+  }, [history.location, recipeRecomendations]);
 
   return (
     <header>
