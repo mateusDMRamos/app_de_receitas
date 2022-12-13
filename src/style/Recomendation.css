@@ -1,15 +1,14 @@
 .recomendation {
-    display: flex;
-    overflow-x: scroll;
-    width: 100%;
+  display: flex;
+  overflow-x: scroll;
+  width: 100%;
 }
 
 .recomendation-card {
-    width: 51vw;
+  width: 51vw;
 }
 
 .recomendation-card img {
-    display: block;
-    width: 51vw;
+  display: block;
+  width: 51vw;
 }
-
