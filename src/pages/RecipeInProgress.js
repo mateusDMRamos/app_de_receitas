@@ -6,7 +6,7 @@ import { fetchMealsDetails } from '../services/meals';
 import { fetchDrinksDetails } from '../services/drinks';
 import RecipeList from '../components/RecipeList';
 
-function RecipeInProgress({ history: { location: { pathname } },
+function RecipeInProgress({ history: { location: { pathname }, push },
   match: { params: { id } } }) {
   const { setDetails, ingredients, usedIngredients } = useContext(recipesContext);
   const [disable, setDisable] = useState(true);
@@ -31,6 +31,11 @@ function RecipeInProgress({ history: { location: { pathname } },
       setDisable(true);
     }
   }, [ingredients, usedIngredients]);
+
+  const handleClick = () => {
+    push('/done-recipes');
+  };
+
   return (
     <div>
       <Header title="Recipe In Progress" searchIcon={ false } />
@@ -43,6 +48,7 @@ function RecipeInProgress({ history: { location: { pathname } },
         type="button"
         className="btnFinish"
         disabled={ disable }
+        onClick={ handleClick }
       >
         Finish Recipe
       </button>
@@ -60,6 +66,7 @@ RecipeInProgress.propTypes = {
     location: PropTypes.shape({
       pathname: PropTypes.string,
     }),
+    push: PropTypes.func,
   }).isRequired,
 };
 
