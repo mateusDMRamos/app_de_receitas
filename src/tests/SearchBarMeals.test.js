@@ -4,7 +4,8 @@ import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import renderWithRouter from './helpers';
 import App from '../App';
-import { allMeals } from './mocks/mealsFetchMocks';
+import { allMeals, oneMeal } from './mocks/mealsFetchMocks';
+import { allDrinks } from './mocks/drinksFetchMocks';
 import mealsCategoriesMocks from './mocks/mealsCategoriesMock';
 
 const TEST_EMAIL = 'teste@email.com';
@@ -25,11 +26,20 @@ const mealCategoriesFetch = () => Promise.resolve({
   json: () => Promise.resolve(mealsCategoriesMocks),
 });
 
+const oneMealFetch = () => Promise.resolve({
+  json: () => Promise.resolve(oneMeal),
+});
+
+const allDrinksFetch = () => Promise.resolve({
+  json: () => Promise.resolve(allDrinks),
+});
+
 describe('Testa o componente SearchBar na tela Drinks', () => {
   beforeEach(() => {
     global.fetch = jest.fn()
       .mockImplementationOnce(allMealsFetch)
-      .mockImplementationOnce(mealCategoriesFetch);
+      .mockImplementationOnce(mealCategoriesFetch)
+      .mockImplementationOnce(oneMealFetch);
   });
 
   afterEach(() => {
@@ -46,11 +56,11 @@ describe('Testa o componente SearchBar na tela Drinks', () => {
     userEvent.type(inputPasswordLogin, PASSWORD);
     userEvent.click(inputBtnLogin);
 
-    const mealsTitle = await screen.getByTestId('page-title');
-    const ingredientRadio = await screen.getByTestId(ingredientRadioBtn);
-    const nameRadio = await screen.getByTestId('name-search-radio');
-    const firstLetterRadio = await screen.getByTestId('first-letter-search-radio');
-    const searchButton = await screen.getByTestId(submitButtonSearch);
+    const mealsTitle = screen.getByTestId('page-title');
+    const ingredientRadio = screen.getByTestId(ingredientRadioBtn);
+    const nameRadio = screen.getByTestId('name-search-radio');
+    const firstLetterRadio = screen.getByTestId('first-letter-search-radio');
+    const searchButton = screen.getByTestId(submitButtonSearch);
 
     expect(history.location.pathname).toBe('/meals');
     expect(mealsTitle).toBeInTheDocument();
@@ -152,5 +162,41 @@ describe('Testa o componente SearchBar na tela Drinks', () => {
     const searchButton = screen.getByTestId(submitButtonSearch);
     userEvent.click(searchButton);
     await waitFor(() => expect(global.alert).toHaveBeenCalledWith('Sorry, we haven\'t found any recipes for these filters.'));
+  });
+  test('Verifica se encaminha para página details se houver somente uma resposta na pesquisa.', async () => {
+    global.fetch = jest.fn()
+      .mockImplementationOnce(allMealsFetch)
+      .mockImplementationOnce(mealCategoriesFetch)
+      .mockImplementationOnce(oneMealFetch)
+      .mockImplementationOnce(allDrinksFetch);
+
+    const { history } = renderWithRouter(<App />);
+    act(() => {
+      history.push('/meals');
+    });
+
+    const searchIconHeader = screen.getByTestId(searchIcon);
+    userEvent.click(searchIconHeader);
+
+    const searchInputHeader = screen.getByTestId(searcInputHeader);
+    expect(searchInputHeader).toBeInTheDocument();
+    userEvent.type(searchInputHeader, 'penne rigate');
+
+    const ingredientRadio = screen.getByTestId(ingredientRadioBtn);
+    userEvent.click(ingredientRadio);
+
+    const searchButton = screen.getByTestId(submitButtonSearch);
+    userEvent.click(searchButton);
+
+    // await waitFor(() => expect(history.location.pathname).toBe('/meals/52771'));
+
+    // const categoryButton = await screen.findByRole('button', { name: /goat/i });
+    // expect(categoryButton).toBeInTheDocument();
+
+    // debug;
+
+    // expect(global.fetch).toHaveBeenCalledTimes(4);
+    // const recipeTitle = await screen.findByTestId('recipe-title');
+    // expect(recipeTitle).toBeInTheDocument();
   });
 });

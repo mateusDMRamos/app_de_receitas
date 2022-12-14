@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { act } from 'react-dom/test-utils';
 import renderWithRouter from './helpers';
 import App from '../App';
-import { allDrinks } from './mocks/drinksFetchMocks';
+import { allDrinks, oneDrink } from './mocks/drinksFetchMocks';
 import { allMeals } from './mocks/mealsFetchMocks';
 import mealsCategoriesMocks from './mocks/mealsCategoriesMock';
 import drinksCategoriesMocks from './mocks/drinksCategoriesMock';
@@ -32,11 +32,16 @@ const drinkCategoriesFetch = () => Promise.resolve({
   json: () => Promise.resolve(drinksCategoriesMocks),
 });
 
+const oneDrinkFetch = () => Promise.resolve({
+  json: () => Promise.resolve(oneDrink),
+});
+
 describe('Testa o componente SearchBar na tela Drinks', () => {
   beforeEach(() => {
     global.fetch = jest.fn()
       .mockImplementationOnce(allDrinksFetch)
-      .mockImplementationOnce(drinkCategoriesFetch);
+      .mockImplementationOnce(drinkCategoriesFetch)
+      .mockImplementationOnce(oneDrinkFetch);
   });
 
   afterEach(() => {
