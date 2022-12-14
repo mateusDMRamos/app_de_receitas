@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import '../style/RecipeInProgress.css';
 import recipesContext from '../context/recipesContext';
 import ShareButton from './ShareBtn';
+import FavoriteBtn from './FavoriteBtn';
 
 function RecipeList({ mealsPathname, inProgress }) {
   const { details, ingredients, usedIngredients,
@@ -130,9 +131,6 @@ function RecipeList({ mealsPathname, inProgress }) {
                 data-testid="video"
                 allowFullScreen
               />
-              <button type="button" data-testid="favorite-btn">
-                Favoritar
-              </button>
             </div>
           )
           : (
@@ -154,10 +152,10 @@ function RecipeList({ mealsPathname, inProgress }) {
               <p data-testid="instructions">
                 {details.strInstructions}
               </p>
-              <button type="button" data-testid="favorite-btn">Favoritar</button>
             </div>
           )
       }
+      <FavoriteBtn />
       <ShareButton />
       {inProgress ? ingredients.map((ingredient, index) => {
         const verifyCheck = usedIngredients
