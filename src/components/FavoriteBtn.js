@@ -81,6 +81,8 @@ function FavoriteBtn() {
       newFavoriteMeal();
     } else if (url.includes('drinks') && !isFavorite) {
       newFavoriteDrink();
+    } else if (isFavorite) {
+      setFavoriteFood(false);
     }
   };
 
