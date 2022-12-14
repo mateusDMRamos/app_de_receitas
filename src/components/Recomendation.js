@@ -15,7 +15,6 @@ function Recomendation({ history }) {
       if (pathname.includes('meals')) {
         const responseDrinksRecomendation = await fetchDrinksRecomendation();
         setRecipeRecomendations(responseDrinksRecomendation);
-        console.log('vddv');
       } else {
         const responseMealsRecomendation = await fetchMealsRecomendation();
         setRecipeRecomendations(responseMealsRecomendation);

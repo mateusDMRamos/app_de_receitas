@@ -1,15 +1,13 @@
 import React, { useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import '../style/RecipeInProgress.css';
-import copy from 'clipboard-copy';
-import shareIcon from '../images/shareIcon.svg';
 import recipesContext from '../context/recipesContext';
+import ShareButton from './ShareBtn';
 
 function RecipeList({ mealsPathname, inProgress }) {
   const { details, ingredients, usedIngredients,
     setIngredients, setUsedIngredients } = useContext(recipesContext);
   const [measures, setMeasures] = useState([]);
-  const [linkCopied, setLinkCopied] = useState(false);
 
   useEffect(() => {
     const keys = Object.keys(details);
@@ -102,16 +100,6 @@ function RecipeList({ mealsPathname, inProgress }) {
     }
   };
 
-  const handleCopy = (url) => {
-    const urlDivisions = 5;
-    const urlDivs = url.split('/', urlDivisions);
-    const newUrl = (
-      `${urlDivs[0]}/${urlDivs[1]}/${urlDivs[2]}/${urlDivs[3]}/${urlDivs[4]}`
-    );
-    setLinkCopied(true);
-    copy(newUrl);
-  };
-
   return (
     <div>
       {
@@ -142,13 +130,6 @@ function RecipeList({ mealsPathname, inProgress }) {
                 data-testid="video"
                 allowFullScreen
               />
-              <button
-                type="button"
-                data-testid="share-btn"
-                onClick={ () => { handleCopy(window.location.href); } }
-              >
-                <img src={ shareIcon } alt="share button" />
-              </button>
               <button type="button" data-testid="favorite-btn">
                 Favoritar
               </button>
@@ -173,18 +154,11 @@ function RecipeList({ mealsPathname, inProgress }) {
               <p data-testid="instructions">
                 {details.strInstructions}
               </p>
-              <button
-                type="button"
-                data-testid="share-btn"
-                onClick={ () => { handleCopy(window.location.href); } }
-              >
-                <img src={ shareIcon } alt="share button" />
-              </button>
               <button type="button" data-testid="favorite-btn">Favoritar</button>
             </div>
           )
       }
-      { linkCopied ? <p>Link copied!</p> : ''}
+      <ShareButton />
       {inProgress ? ingredients.map((ingredient, index) => {
         const verifyCheck = usedIngredients
           .some((usedIngredient) => (
