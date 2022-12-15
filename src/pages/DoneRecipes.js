@@ -47,7 +47,7 @@ function DoneRecipes() {
               {
                 recipe.type === 'meal'
                   ? `${recipe.nationality} - ${recipe.category}`
-                  : recipe.category
+                  : `${recipe.alcoholicOrNot} - ${recipe.category}`
               }
             </p>
             <p
