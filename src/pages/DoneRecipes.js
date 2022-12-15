@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 
 function DoneRecipes() {
-  const [doneRecipes, setDoneRecipes] = useState(['']);
+  const [doneRecipes, setDoneRecipes] = useState([]);
 
   useEffect(() => {
     if (localStorage.getItem('doneRecipes')) {
@@ -33,8 +33,8 @@ function DoneRecipes() {
       >
         Drinks
       </button>
-      {
-        doneRecipes.map((recipe, index) => (
+      { doneRecipes.length > 0
+        && doneRecipes.map((recipe, index) => (
           <div key={ index }>
             <img
               src={ recipe.image }
@@ -64,8 +64,7 @@ function DoneRecipes() {
               ))
             }
           </div>
-        ))
-      }
+        ))}
     </div>
   );
 }
