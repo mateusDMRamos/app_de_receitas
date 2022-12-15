@@ -156,7 +156,7 @@ function RecipeList({ mealsPathname, inProgress }) {
           )
       }
       <FavoriteBtn />
-      <ShareButton />
+      <ShareButton detailsPage />
       {inProgress ? ingredients.map((ingredient, index) => {
         const verifyCheck = usedIngredients
           .some((usedIngredient) => (

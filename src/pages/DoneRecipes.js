@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import shareIcon from '../images/shareIcon.svg';
 import Header from '../components/Header';
+import ShareButton from '../components/ShareBtn';
 
 function DoneRecipes() {
   const [doneRecipes, setDoneRecipes] = useState([]);
@@ -55,15 +55,12 @@ function DoneRecipes() {
             >
               { recipe.doneDate }
             </p>
-            <button
-              type="button"
-            >
-              <img
-                src={ shareIcon }
-                alt="Botão de compartilhar"
-                data-testid={ `${index}-horizontal-share-btn` }
-              />
-            </button>
+            <ShareButton
+              detailsPage={ false }
+              type={ recipe.type }
+              id={ recipe.id }
+              index={ index }
+            />
             {
               recipe.tags.map((tag) => (
                 <span
