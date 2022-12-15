@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 
 function FavoriteRecipes() {
@@ -7,14 +7,15 @@ function FavoriteRecipes() {
   useEffect(() => {
     if (localStorage.getItem('doneRecipes')) {
       const favRecipesLocalStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
-
-      setFavoriteRecipes(favRecipesLocalStorage);
+      if (favRecipesLocalStorage) {
+        setFavoriteRecipes(favRecipesLocalStorage);
+      }
     }
   }, []);
 
   return (
     <div>
-      <Header title="Done Recipes" searchIcon={ false } />
+      <Header title="Favorite Recipes" searchIcon={ false } />
       <button
         data-testid="filter-by-all-btn"
         type="button"
