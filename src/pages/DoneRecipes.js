@@ -42,6 +42,7 @@ function DoneRecipes() {
               data-testid={ `${index}-horizontal-image` }
             />
             <p data-testid={ `${index}-horizontal-name` }>{ recipe.name }</p>
+            <p data-testid={ `${index}-horizontal-top-text` }>{recipe.category}</p>
             <p
               data-testid={ `${index}-horizontal-done-date` }
             >
