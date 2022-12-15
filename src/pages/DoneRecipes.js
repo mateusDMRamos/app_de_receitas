@@ -8,7 +8,6 @@ function DoneRecipes() {
   useEffect(() => {
     if (localStorage.getItem('doneRecipes')) {
       const doneRecipesLocalStorage = JSON.parse(localStorage.getItem('doneRecipes'));
-
       setDoneRecipes(doneRecipesLocalStorage);
     }
   }, []);

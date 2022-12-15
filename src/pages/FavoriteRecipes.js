@@ -9,9 +9,7 @@ function FavoriteRecipes() {
   useEffect(() => {
     if (localStorage.getItem('favoriteRecipes')) {
       const favRecipesLocalStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
-      if (favRecipesLocalStorage) {
-        setFavoriteRecipes(favRecipesLocalStorage);
-      }
+      setFavoriteRecipes(favRecipesLocalStorage);
     }
   }, []);
 
