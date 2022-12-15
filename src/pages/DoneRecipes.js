@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import shareIcon from '../images/shareIcon.svg';
 import Header from '../components/Header';
 
 function DoneRecipes() {
@@ -42,17 +43,26 @@ function DoneRecipes() {
               data-testid={ `${index}-horizontal-image` }
             />
             <p data-testid={ `${index}-horizontal-name` }>{ recipe.name }</p>
-            <p data-testid={ `${index}-horizontal-top-text` }>{recipe.category}</p>
+            <p data-testid={ `${index}-horizontal-top-text` }>
+              {
+                recipe.type === 'meal'
+                  ? `${recipe.nationality} - ${recipe.category}`
+                  : recipe.category
+              }
+            </p>
             <p
               data-testid={ `${index}-horizontal-done-date` }
             >
               { recipe.doneDate }
             </p>
             <button
-              data-testid={ `${index}-horizontal-share-btn` }
               type="button"
             >
-              Compartilhar
+              <img
+                src={ shareIcon }
+                alt="Botão de compartilhar"
+                data-testid={ `${index}-horizontal-share-btn` }
+              />
             </button>
             {
               recipe.tags.map((tag) => (
