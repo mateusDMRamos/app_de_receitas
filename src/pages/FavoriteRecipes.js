@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
+import ShareButton from '../components/ShareBtn';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 function FavoriteRecipes() {
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
 
   useEffect(() => {
-    if (localStorage.getItem('doneRecipes')) {
+    if (localStorage.getItem('favoriteRecipes')) {
       const favRecipesLocalStorage = JSON.parse(localStorage.getItem('favoriteRecipes'));
       if (favRecipesLocalStorage) {
         setFavoriteRecipes(favRecipesLocalStorage);
@@ -43,12 +45,27 @@ function FavoriteRecipes() {
               data-testid={ `${index}-horizontal-image` }
             />
             <p data-testid={ `${index}-horizontal-name` }>{ recipe.name }</p>
-            <p data-testid={ `${index}-horizontal-top-text` }>{recipe.category}</p>
+            <p data-testid={ `${index}-horizontal-top-text` }>
+              {
+                recipe.type === 'meal'
+                  ? `${recipe.nationality} - ${recipe.category}`
+                  : `${recipe.alcoholicOrNot} - ${recipe.category}`
+              }
+            </p>
+            <ShareButton
+              detailsPage={ false }
+              type={ recipe.type }
+              id={ recipe.id }
+              index={ index }
+            />
             <button
-              data-testid={ `${index}-horizontal-share-btn` }
               type="button"
             >
-              Compartilhar
+              <img
+                src={ blackHeartIcon }
+                alt="favorite icon"
+                data-testid={ `${index}-horizontal-favorite-btn` }
+              />
             </button>
           </div>
         ))}
