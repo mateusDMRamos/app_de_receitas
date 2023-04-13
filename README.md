@@ -20,3 +20,6 @@
   npm start
  ```
  
+## Próximos passos:
+ * Estilização: utilizar Css para deixar o App mais moderno e dimencionar corretamente os campos necessários.
+ * Implementação do carroussel de indicações: atualmente, o carroussel só mostra bebidas e comidas como sujestões mas não permite a navegação entre receitas. Com este passo, pretende-se dar a opção de clicar nas receitas sugeridas para mudar a receita em destaque.
