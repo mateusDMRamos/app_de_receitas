@@ -10,13 +10,13 @@
 ## Para utilizar o projeto:
  * Instale as dependências com:
 
- '''
+ ```
   npm install
- '''
+ ```
  
  * Após a instalação das dependências, basta utilizar o comando abaixo para rodar o protótipo:
  
- '''
+ ```
   npm start
- '''
+ ```
  
