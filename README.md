@@ -1,13 +1,20 @@
-# :construction: README customizado em construção ! :construction:
-<!-- Olá, Tryber!
-Esse é apenas um arquivo inicial para o README do seu projeto no qual você pode customizar e reutilizar todas as vezes que for executar o trybe-publisher.
+# :construction: PROJETO em construção ! :construction:
 
-Para deixá-lo com a sua cara, basta alterar o seguinte arquivo da sua máquina: ~/.student-repo-publisher/custom/_NEW_README.md
+##Sobre o Projeto:
+ * O projeto é um app de receitas onde se pode pesquisar por receitas de comidas e bebidas para fazer, marcá-las como favoritas e marcar também a conclusão de receitas já realizadas, além de ser possível compartilhar a página de receitas com outros usuários.
 
-É essencial que você preencha esse documento por conta própria, ok?
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
-:warning: IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
--->
+ * Este projeto foi construído utilizando React Hooks e Context API.
+
+ * O projeto consome as APIs [TheMealDB](https://www.themealdb.com/) e [TheCocktailDB](https://www.thecocktaildb.com/api.php)
+
+##Para utilizar o projeto:
+ * Instale as dependências com:
+ '''
+ npm install
+ '''
+ 
+ * Após a instalação das dependências, basta utilizar o comando abaixo para rodar o protótipo:
+ '''
+ npm start
+ '''
+ 
