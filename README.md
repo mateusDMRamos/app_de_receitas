@@ -25,7 +25,7 @@
  
  *O projeto possui testes desenvolvidos em RTL para verificar o funcionamento do mesmo.
 
-## Para utilizar o projeto:
+## Para rodar o projeto localmente:
  * Instale as dependências com:
 
  ```
@@ -38,6 +38,6 @@
   npm start
  ```
  
-## Próximos passos:
+## Pontos a melhorar/desenvolver:
  * Estilização: utilizar Css para deixar o App mais moderno e dimencionar corretamente os campos necessários.
  * Implementação do carroussel de indicações: atualmente, o carroussel só mostra bebidas e comidas como sujestões mas não permite a navegação entre receitas. Com este passo, pretende-se dar a opção de clicar nas receitas sugeridas para mudar a receita em destaque.
