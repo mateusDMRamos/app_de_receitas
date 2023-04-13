@@ -1,11 +1,29 @@
 # :construction: PROJETO em construção ! :construction:
 
+## Idealizadores:
+### Este projeto foi realizado em grupo durante o curso de web dev fullstack da trybe e contou com a participação dos seguintes desenvolvedores:
+* [Mateus Ramos](https://github.com/mateusDMRamos)
+* [João Lelles](https://github.com/joaolelles)
+* [Sérgio Moreira](https://github.com/sergiomoreirasjr)
+* [Gabriel Fonseca](https://github.com/GabrielFonseca13)
+* [Carla Beatriz](https://github.com/carlabeatrizr)
+* [Eduardo Balbinot](https://github.com/EduardoBalbinot)
+
+<a href="https://github.com/mateusDMRamos/app_de_receitas/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=mateusDMRamos/app_de_receitas" />
+</a>
+Made with [contrib.rocks](https://contrib.rocks).
+
+
+
 ## Sobre o Projeto:
  * O projeto é um app de receitas onde se pode pesquisar por receitas de comidas e bebidas para fazer, marcá-las como favoritas e marcar também a conclusão de receitas já realizadas, além de ser possível compartilhar a página de receitas com outros usuários.
 
- * Este projeto foi construído utilizando React Hooks e Context API.
+ * Este projeto foi construído utilizando React Hooks e Context API e RTL.
 
  * O projeto consome as APIs [TheMealDB](https://www.themealdb.com/) e [TheCocktailDB](https://www.thecocktaildb.com/api.php)
+ 
+ *O projeto possui testes desenvolvidos em RTL para verificar o funcionamento do mesmo.
 
 ## Para utilizar o projeto:
  * Instale as dependências com:
