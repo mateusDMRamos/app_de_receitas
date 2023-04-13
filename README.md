@@ -12,7 +12,7 @@
 <a href="https://github.com/mateusDMRamos/app_de_receitas/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=mateusDMRamos/app_de_receitas" />
 </a>
-Made with [contrib.rocks](https://contrib.rocks).
+<font size="1"> Made with [contrib.rocks](https://contrib.rocks). </font>
 
 
 
