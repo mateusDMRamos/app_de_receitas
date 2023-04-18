@@ -1,4 +1,4 @@
-# :construction: PROJETO em construção ! :construction:
+# App de Receitas
 
 ## Idealizadores:
 ### Este projeto foi realizado em grupo durante o curso de web dev fullstack da trybe e contou com a participação dos seguintes desenvolvedores:
